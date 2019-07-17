@@ -22,8 +22,7 @@ public class AuthenticationController {
 	EmployeeService employeeService;
 	
 	
-	@PostMapping(value="/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@PostMapping(value="/register")
 	public Employee saveUser(@RequestBody Employee employee) throws Exception{
 		return employeeService.saveEmployee(employee);
 	}

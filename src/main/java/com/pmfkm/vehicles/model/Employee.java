@@ -69,8 +69,17 @@ public class Employee implements Serializable {
 		this.authority = authority;
 		this.travelOrders = travelOrders;
 	}  
+	
+	
  
 	
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", email=" + email + ", firstName=" + firstName + ", isActive=" + isActive
+				+ ", lastName=" + lastName + ", pass=" + pass + ", authority=" + authority + ", travelOrders="
+				+ travelOrders + "]";
+	}
 
 	public long getId() {
 		return this.id;

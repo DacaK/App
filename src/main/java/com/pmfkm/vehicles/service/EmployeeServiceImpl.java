@@ -1,5 +1,7 @@
 package com.pmfkm.vehicles.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 //		employee.setPass(bcryptEncoder.encode(employee.getPass()));
 		System.out.println(employee);
 		return employeeDao.save(employee);
+	}
+
+	@Override
+	@Transactional
+	public List<Employee> getAllEmployees() {
+		System.out.println(employeeDao.findAll());
+		return employeeDao.findAll();
 	}
 
 }
