@@ -22,6 +22,7 @@ public class Employee implements Serializable {
 
 	@Column(name="EMAIL")
 	private String email;
+	
 
 	@Column(name="FIRST_NAME")
 	private String firstName;
@@ -32,8 +33,11 @@ public class Employee implements Serializable {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
-	@Column(name="PASS")
-	private String pass;
+	@Column(name="USERNAME")
+	private String username;
+	
+	@Column(name="PASSWORD")
+	private String password;
 	
 	
 	@ManyToOne
@@ -42,44 +46,39 @@ public class Employee implements Serializable {
 	private Authority authority;
 
 	@OneToMany(mappedBy="employee")
+//	,  cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
 	@JsonIgnore
 	private List<TravelOrder> travelOrders;
 
 	public Employee() {
 	} 
 
-	public Employee(long id, String email, String firstName, boolean isActive, String lastName, String pass,
+	public Employee(long id, String email, String firstName, boolean isActive, String lastName, String username, String password,
 			Authority authority, List<TravelOrder> travelOrders) { 
 		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
 		this.isActive = isActive;
 		this.lastName = lastName;
-		this.pass = pass;
+		this.username =username;
+		this.password = password;
 		this.authority = authority;
 		this.travelOrders = travelOrders;
 	} 
-	public Employee(String email, String firstName, boolean isActive, String lastName, String pass, Authority authority,
+	public Employee(String email, String firstName, boolean isActive, String lastName,String username,String password, Authority authority,
 			List<TravelOrder> travelOrders) { 
 		this.email = email;
 		this.firstName = firstName;
 		this.isActive = isActive;
 		this.lastName = lastName;
-		this.pass = pass;
+		this.username =username;
+		this.password = password;
 		this.authority = authority;
 		this.travelOrders = travelOrders;
 	}  
 	
 	
  
-	
-
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", email=" + email + ", firstName=" + firstName + ", isActive=" + isActive
-				+ ", lastName=" + lastName + ", pass=" + pass + ", authority=" + authority + ", travelOrders="
-				+ travelOrders + "]";
-	}
 
 	public long getId() {
 		return this.id;
@@ -119,18 +118,31 @@ public class Employee implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		
 	}
-	@JsonIgnore
-	public String getPass() {
-		return this.pass;
-	}
-	@JsonProperty
-	public void setPass(String pass) {
-		this.pass = pass;
+	
+	
+	public String getUsername() {
+		return username;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+
 	public Authority getAuthority() {
-		return this.authority;
+		return authority;
 	}
 
 	public void setAuthority(Authority authority) {

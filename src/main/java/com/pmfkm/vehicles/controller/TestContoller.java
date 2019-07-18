@@ -19,7 +19,7 @@ public class TestContoller {
 	
 	@RequestMapping("/hello")
 	public String hello() {
-		return "hell"+ HttpStatus.OK;
+		return "hell";
 	}
 	
 	

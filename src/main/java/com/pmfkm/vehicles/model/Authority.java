@@ -28,7 +28,8 @@ public class Authority implements Serializable {
 
 	//bi-directional many-to-one association to Employee
 	
-	@OneToMany(mappedBy="authority")
+	@OneToMany
+//	(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	@JsonIgnore
 	private List<Employee> employees;
 

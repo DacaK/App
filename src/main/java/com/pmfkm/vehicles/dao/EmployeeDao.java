@@ -8,6 +8,8 @@ import com.pmfkm.vehicles.model.Employee;
 
 @Repository
 public interface EmployeeDao extends JpaRepository<Employee, Integer>{
+	
+	Employee findByUsername(String username);
 
 
 }
