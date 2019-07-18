@@ -39,7 +39,7 @@ public class AuthenticationController {
 		return employeeService.saveEmployee(employee);
 	}
 	
-	@PostMapping(value="/authenticate")
+	@PostMapping(value="/login")
 	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception{
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		
