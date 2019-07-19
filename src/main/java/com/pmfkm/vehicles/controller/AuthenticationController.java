@@ -39,7 +39,11 @@ public class AuthenticationController {
 		return employeeService.saveEmployee(employee);
 	}
 	
+<<<<<<< Updated upstream
 	@PostMapping(value="/login")
+=======
+	@PostMapping(value="/authenticate")
+>>>>>>> Stashed changes
 	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception{
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		

@@ -42,7 +42,6 @@ public class Employee implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="AUTHORITY_ID")
-	@JsonIgnore
 	private Authority authority;
 
 	@OneToMany(mappedBy="employee")
