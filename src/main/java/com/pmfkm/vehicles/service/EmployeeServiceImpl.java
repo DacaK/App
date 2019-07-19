@@ -1,18 +1,12 @@
 package com.pmfkm.vehicles.service;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-=======
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> Stashed changes
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -61,12 +55,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		Employee employee = employeeDao.findByUsername(username);
 		if(employee == null) {
-<<<<<<< Updated upstream
 			throw new UsernameNotFoundException("User not found with username:"+employee);
 		}
 //		return new User(employee.getUsername(), employee.getPassword(), new ArrayList<>());
-		
-		
 		return JwtUserFactory.create(employee);
 		
 		
@@ -76,14 +67,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 
 
-=======
-			throw new UsernameNotFoundException("User not found with username:"+username);
-		}
-		return new User(employee.getUsername(), employee.getPassword(), new ArrayList<>());
-		
-	}
-
->>>>>>> Stashed changes
 }
 
 

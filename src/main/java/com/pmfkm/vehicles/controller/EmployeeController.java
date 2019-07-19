@@ -19,13 +19,8 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 	
-<<<<<<< Updated upstream
-	
 	@GetMapping("/getEmployees")
 	@PreAuthorize("hasRole('USER')")
-=======
-	@GetMapping("/getEmployees")
->>>>>>> Stashed changes
 	public List<Employee> getAllEmployees(){
 		return  employeeService.getAllEmployees();
 	}

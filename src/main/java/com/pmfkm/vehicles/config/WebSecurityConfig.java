@@ -4,10 +4,7 @@ package com.pmfkm.vehicles.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< Updated upstream
 import org.springframework.http.HttpMethod;
-=======
->>>>>>> Stashed changes
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -58,13 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		httpSecurity.csrf().disable()
 			
-<<<<<<< Updated upstream
+
 				.authorizeRequests().antMatchers("/login", "/register").permitAll().
-//				antMatchers(HttpMethod.OPTIONS,"/**").permitAll().
-=======
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
-				
->>>>>>> Stashed changes
+				antMatchers(HttpMethod.OPTIONS,"/**").permitAll().
 				anyRequest().authenticated().and().
 				
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

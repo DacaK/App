@@ -21,11 +21,8 @@ public class TestContoller {
 	@RequestMapping("/hello")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String hello() {
-<<<<<<< Updated upstream
 		return "mitar";
-=======
-		return "hell";
->>>>>>> Stashed changes
+
 	}
 	
 	
