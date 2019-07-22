@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.pmfkm.vehicles.model.Employee;
 
@@ -11,10 +12,11 @@ import com.pmfkm.vehicles.model.Employee;
 public interface EmployeeService  extends UserDetailsService
 {
 
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+	
 	Employee saveEmployee(Employee employee);
 	
 	List<Employee>getAllEmployees();
 	
-	public UserDetails loadUserByUsername(String username);
-	
+	public Employee getEmployeeByUsername(String username);
 }

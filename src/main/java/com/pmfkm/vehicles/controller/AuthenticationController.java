@@ -2,13 +2,10 @@ package com.pmfkm.vehicles.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.authentication.BadCredentialsException;
-//import org.springframework.security.authentication.DisabledException;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,42 +17,39 @@ import com.pmfkm.vehicles.model.JwtRequest;
 import com.pmfkm.vehicles.model.JwtResponse;
 import com.pmfkm.vehicles.service.EmployeeService;
 
-
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class AuthenticationController {
-	
+
+	@Autowired
 	AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	EmployeeService employeeService;
-	
+
 	@Autowired
-	JwtTokenUtil jwtTokenUtil; 
-	
-	
-	@PostMapping(value="/register")
-	public Employee saveUser(@RequestBody Employee employee) throws Exception{
+	JwtTokenUtil jwtTokenUtil;
+
+	@PostMapping(value = "/register")
+	public Employee saveUser(@RequestBody Employee employee) throws Exception {
 		return employeeService.saveEmployee(employee);
 	}
-	
-	
-	@PostMapping(value="/login")
-	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception{
+
+	@PostMapping(value = "/login")
+	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		
-		UserDetails userDetails = employeeService.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDetails userDetails = employeeService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		return new JwtResponse(token); 
+		return new JwtResponse(token);
 	}
-	
-	public void authenticate(String username, String password){
+
+	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		} catch (Exception  e) {
+			throw new Exception("User_disabled", e);
+		
 		}
-		catch (Exception e) {
-			System.out.println("Error");
-
+		
 	}
-}
 }
