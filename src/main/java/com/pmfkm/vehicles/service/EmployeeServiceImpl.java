@@ -44,14 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setIsActive(true);
 		employee.setAuthority(autority);
 		employee.setPassword(bcryptEncoder.encode(employee.getPassword()));
-		System.out.println(employee);
 		return employeeDao.save(employee);
 	}
 
 	@Override
 	@Transactional
 	public List<Employee> getAllEmployees() {
-		System.out.println(employeeDao.findAll());
 		return employeeDao.findAll();
 	}
 

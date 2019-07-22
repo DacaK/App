@@ -57,11 +57,9 @@ public class JwtTokenUtil implements Serializable {
 		.map(GrantedAuthority::getAuthority)
                .collect(Collectors.joining(","));
 		
-//		//System.out.println(authorities);
 		Map<String, Object> claims = new HashMap<>();
 //		claims.put(AUTHORITIES_KEY, userDetails.getAuthorities() );
 		claims.put(AUTHORITIES_KEY, authorities);
-		System.out.println("Claimsss"+userDetails.getAuthorities());
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
 
@@ -74,7 +72,6 @@ public class JwtTokenUtil implements Serializable {
 	//validate token
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		final String username = getUsernameFromToken(token);
-		System.out.println("Usernameee"+username);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 }
