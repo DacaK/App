@@ -17,7 +17,7 @@ import com.pmfkm.vehicles.model.JwtRequest;
 import com.pmfkm.vehicles.model.JwtResponse;
 import com.pmfkm.vehicles.service.EmployeeService;
 
-@CrossOrigin("http://localhost:4200")
+
 @RestController
 public class AuthenticationController {
 

@@ -3,12 +3,17 @@ package com.pmfkm.vehicles.model;
 
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the AUTHORITY database table.
@@ -18,42 +23,36 @@ import java.util.List;
 @NamedQuery(name="Authority.findAll", query="SELECT a FROM Authority a")
 public class Authority implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@Column(name="id")
-	private long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
 	@Column(name="ROLE_TITLE")
-	private String role;
+	private String roleTitle;
 
 	//bi-directional many-to-one association to Employee
-	
-	@OneToMany
-//	(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@OneToMany(mappedBy="authority")
 	@JsonIgnore
 	private List<Employee> employees;
 
 	public Authority() {
 	}
-	
-	public Authority(long id) {
-		this.id = id;
-	}
-	 
-	public long getId() {
+
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getRole() {
-		return this.role;
+		return this.roleTitle;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleTitle(String roleTitle) {
+		this.roleTitle = roleTitle;
 	}
 
 	public List<Employee> getEmployees() {

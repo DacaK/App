@@ -1,6 +1,5 @@
 package com.pmfkm.vehicles.model;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;

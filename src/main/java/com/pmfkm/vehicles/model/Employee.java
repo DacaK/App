@@ -1,28 +1,33 @@
 package com.pmfkm.vehicles.model;
 
-
 import java.io.Serializable;
-import javax.persistence.*;
- 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
- 
 import java.util.List;
 
- 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * The persistent class for the EMPLOYEE database table.
+ * 
+ */
 @Entity
 @NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
-@Table(name="employee")
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private long id;
+	private int id;
 
-	@Column(name="EMAIL")
 	private String email;
-	
 
 	@Column(name="FIRST_NAME")
 	private String firstName;
@@ -33,57 +38,53 @@ public class Employee implements Serializable {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
-	@Column(name="USERNAME")
-	private String username;
-	
-	@Column(name="PASSWORD")
+	@Column(name="PASS")
 	private String password;
-	
-	
+
+	private String username;
+
+	//bi-directional many-to-one association to Authority
 	@ManyToOne
-	@JoinColumn(name="AUTHORITY_ID")
 	private Authority authority;
 
+	//bi-directional many-to-one association to TravelOrder
 	@OneToMany(mappedBy="employee")
-//	,  cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
 	@JsonIgnore
 	private List<TravelOrder> travelOrders;
 
 	public Employee() {
-	} 
+	}
 
-	public Employee(long id, String email, String firstName, boolean isActive, String lastName, String username, String password,
-			Authority authority, List<TravelOrder> travelOrders) { 
+	public Employee(int id, String firstName, String lastName, String email, String username, String password,
+			boolean isActive, Authority authority, List<TravelOrder> travelOrders) {
 		this.id = id;
-		this.email = email;
 		this.firstName = firstName;
-		this.isActive = isActive;
 		this.lastName = lastName;
-		this.username =username;
+		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.isActive = isActive;
 		this.authority = authority;
 		this.travelOrders = travelOrders;
-	} 
-	public Employee(String email, String firstName, boolean isActive, String lastName,String username,String password, Authority authority,
-			List<TravelOrder> travelOrders) { 
-		this.email = email;
+	}
+	
+	public Employee(String firstName, String lastName, String email, String username, String password,
+			boolean isActive, Authority authority, List<TravelOrder> travelOrders) {
 		this.firstName = firstName;
-		this.isActive = isActive;
 		this.lastName = lastName;
-		this.username =username;
+		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.isActive = isActive;
 		this.authority = authority;
 		this.travelOrders = travelOrders;
-	}  
-	
-	
- 
+	}
 
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -117,31 +118,26 @@ public class Employee implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-		
 	}
-	
-	
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	
-	public String getPassword() {
-		return this.password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-
 	public Authority getAuthority() {
-		return authority;
+		return this.authority;
 	}
 
 	public void setAuthority(Authority authority) {
@@ -168,7 +164,6 @@ public class Employee implements Serializable {
 		travelOrder.setEmployee(null);
 
 		return travelOrder;
-	} 
-	
- 
+	}
+
 }

@@ -1,44 +1,28 @@
 package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import javax.persistence.*;
 import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
- 
+/**
+ * The persistent class for the TRAVEL_ORDER database table.
+ * 
+ */
 @Entity
 @Table(name="TRAVEL_ORDER")
 @NamedQuery(name="TravelOrder.findAll", query="SELECT t FROM TravelOrder t")
 public class TravelOrder implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
 	@Column(name="ACT_DISTANCE")
-	private BigDecimal actDistance;
+	private int actDistance;
 
-	@Lob
 	@Column(name="ADMIN_NOTE")
 	private String adminNote;
 
@@ -53,65 +37,40 @@ public class TravelOrder implements Serializable {
 	@Column(name="DATE_START")
 	private Date dateStart;
 
-	@Column(name="DESTINATION")
 	private String destination;
 
-	@Lob
 	@Column(name="EMP_NOTE")
 	private String empNote;
 
 	@Column(name="EST_DISTANCE")
-	private BigDecimal estDistance;
+	private int estDistance;
 
 	@Column(name="FUEL_CONSUMED")
-	private BigDecimal fuelConsumed;
+	private float fuelConsumed;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="travelOrder", cascade=CascadeType.ALL)
-	@JsonIgnore
+	@OneToMany(mappedBy="travelOrder")
 	private List<Bill> bills;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne 
-	@JoinColumn(name="USER_ID") 
-	
+	@ManyToOne
 	private Employee employee;
 
 	//bi-directional many-to-one association to TravelStatus
-	@ManyToOne 
-	@JoinColumn(name="TRAVEL_STATUS_ID") 
+	@ManyToOne
+	@JoinColumn(name="TRAVEL_STATUS_ID")
 	private TravelStatus travelStatus;
 
 	//bi-directional many-to-one association to Vehicle
-	@ManyToOne 
-	
+	@ManyToOne
 	private Vehicle vehicle;
-	 
 
 	public TravelOrder() {
 	}
-	
-	public TravelOrder(BigDecimal actDistance, String adminNote, Timestamp createdAt, Date dateEnd, Date dateStart,
-			String destination, String empNote, BigDecimal estDistance, BigDecimal fuelConsumed, List<Bill> bills, Employee employee,
-			TravelStatus travelStatus, Vehicle vehicle) {
-		this.actDistance = actDistance;
-		this.adminNote = adminNote;
-		this.createdAt = createdAt;
-		this.dateEnd = dateEnd;
-		this.dateStart = dateStart;
-		this.destination = destination;
-		this.empNote = empNote;
-		this.estDistance = estDistance;
-		this.fuelConsumed = fuelConsumed;
-		this.bills = bills;
-		this.employee = employee;
-		this.travelStatus = travelStatus;
-		this.vehicle = vehicle;
-	}
-	
-	public TravelOrder(long id, BigDecimal actDistance, String adminNote, Timestamp createdAt, Date dateEnd, Date dateStart,
-			String destination, String empNote, BigDecimal estDistance, BigDecimal fuelConsumed, List<Bill> bills, Employee employee,
-			TravelStatus travelStatus, Vehicle vehicle) {
+
+	public TravelOrder(int id, int actDistance, String adminNote, Timestamp createdAt, Date dateEnd, Date dateStart,
+			String destination, String empNote, int estDistance, float fuelConsumed, List<Bill> bills,
+			Employee employee, TravelStatus travelStatus, Vehicle vehicle) {
 		this.id = id;
 		this.actDistance = actDistance;
 		this.adminNote = adminNote;
@@ -127,21 +86,39 @@ public class TravelOrder implements Serializable {
 		this.travelStatus = travelStatus;
 		this.vehicle = vehicle;
 	}
-	
- 
-	public long getId() {
+
+	public TravelOrder(int actDistance, String adminNote, Timestamp createdAt, Date dateEnd, Date dateStart,
+			String destination, String empNote, int estDistance, float fuelConsumed, List<Bill> bills,
+			Employee employee, TravelStatus travelStatus, Vehicle vehicle) {
+		this.actDistance = actDistance;
+		this.adminNote = adminNote;
+		this.createdAt = createdAt;
+		this.dateEnd = dateEnd;
+		this.dateStart = dateStart;
+		this.destination = destination;
+		this.empNote = empNote;
+		this.estDistance = estDistance;
+		this.fuelConsumed = fuelConsumed;
+		this.bills = bills;
+		this.employee = employee;
+		this.travelStatus = travelStatus;
+		this.vehicle = vehicle;
+	}
+
+
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public BigDecimal getActDistance() {
+	public int getActDistance() {
 		return this.actDistance;
 	}
 
-	public void setActDistance(BigDecimal actDistance) {
+	public void setActDistance(int actDistance) {
 		this.actDistance = actDistance;
 	}
 
@@ -193,19 +170,19 @@ public class TravelOrder implements Serializable {
 		this.empNote = empNote;
 	}
 
-	public BigDecimal getEstDistance() {
+	public int getEstDistance() {
 		return this.estDistance;
 	}
 
-	public void setEstDistance(BigDecimal estDistance) {
+	public void setEstDistance(int estDistance) {
 		this.estDistance = estDistance;
 	}
 
-	public BigDecimal getFuelConsumed() {
+	public float getFuelConsumed() {
 		return this.fuelConsumed;
 	}
 
-	public void setFuelConsumed(BigDecimal fuelConsumed) {
+	public void setFuelConsumed(float fuelConsumed) {
 		this.fuelConsumed = fuelConsumed;
 	}
 

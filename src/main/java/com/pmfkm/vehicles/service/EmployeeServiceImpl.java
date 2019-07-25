@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pmfkm.vehicles.config.JwtUserFactory;
 import com.pmfkm.vehicles.dao.EmployeeDao;
 import com.pmfkm.vehicles.model.Authority;
 import com.pmfkm.vehicles.model.Employee;

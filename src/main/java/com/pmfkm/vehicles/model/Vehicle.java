@@ -1,11 +1,7 @@
 package com.pmfkm.vehicles.model;
 
-
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
 /**
@@ -19,13 +15,13 @@ public class Vehicle implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private long id;
+	private int id;
 
 	private String brand;
 
-	private double consumption;
+	private float consumption;
 
-	private double cubage;
+	private float cubage;
 
 	private int distance;
 
@@ -41,22 +37,23 @@ public class Vehicle implements Serializable {
 	@Column(name="LICENCE_NUM")
 	private String licenceNum;
 
-	@Column(name="MODEL")
 	private String model;
 
 	@Column(name="VEHICLE_NUM")
 	private String vehicleNum;
 
+	//bi-directional many-to-one association to ServiceBook
+	@OneToMany(mappedBy="vehicle")
+	private List<ServiceBook> serviceBooks;
+
 	//bi-directional many-to-one association to TravelOrder
-	@JsonIgnore
 	@OneToMany(mappedBy="vehicle")
 	private List<TravelOrder> travelOrders;
 
 	public Vehicle() {
 	}
-	
 
-	public Vehicle(long id, String brand, double consumption, double cubage, int distance, boolean isActive,
+	public Vehicle(int id, String brand, float consumption, float cubage, int distance, boolean isActive,
 			boolean isAvailable, int lastService, String licenceNum, String model, String vehicleNum,
 			List<TravelOrder> travelOrders) {
 		this.id = id;
@@ -74,7 +71,7 @@ public class Vehicle implements Serializable {
 	}
 
 
-	public Vehicle(String brand, double consumption, double cubage, int distance, boolean isActive, boolean isAvailable,
+	public Vehicle(String brand, float consumption, float cubage, int distance, boolean isActive, boolean isAvailable,
 			int lastService, String licenceNum, String model, String vehicleNum, List<TravelOrder> travelOrders) {
 		this.brand = brand;
 		this.consumption = consumption;
@@ -90,12 +87,11 @@ public class Vehicle implements Serializable {
 	}
 
 
-
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -107,19 +103,19 @@ public class Vehicle implements Serializable {
 		this.brand = brand;
 	}
 
-	public double getConsumption() {
+	public float getConsumption() {
 		return this.consumption;
 	}
 
-	public void setConsumption(double consumption) {
+	public void setConsumption(float consumption) {
 		this.consumption = consumption;
 	}
 
-	public double getCubage() {
+	public float getCubage() {
 		return this.cubage;
 	}
 
-	public void setCubage(double cubage) {
+	public void setCubage(float cubage) {
 		this.cubage = cubage;
 	}
 
@@ -177,6 +173,28 @@ public class Vehicle implements Serializable {
 
 	public void setVehicleNum(String vehicleNum) {
 		this.vehicleNum = vehicleNum;
+	}
+
+	public List<ServiceBook> getServiceBooks() {
+		return this.serviceBooks;
+	}
+
+	public void setServiceBooks(List<ServiceBook> serviceBooks) {
+		this.serviceBooks = serviceBooks;
+	}
+
+	public ServiceBook addServiceBook(ServiceBook serviceBook) {
+		getServiceBooks().add(serviceBook);
+		serviceBook.setVehicle(this);
+
+		return serviceBook;
+	}
+
+	public ServiceBook removeServiceBook(ServiceBook serviceBook) {
+		getServiceBooks().remove(serviceBook);
+		serviceBook.setVehicle(null);
+
+		return serviceBook;
 	}
 
 	public List<TravelOrder> getTravelOrders() {

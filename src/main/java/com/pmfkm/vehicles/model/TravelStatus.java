@@ -2,9 +2,6 @@ package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
 
@@ -19,18 +16,17 @@ public class TravelStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String name;
 
 	//bi-directional many-to-one association to TravelOrder
 	@OneToMany(mappedBy="travelStatus")
-	@JsonIgnore
 	private List<TravelOrder> travelOrders;
-
+	
 	public TravelStatus() {
-	} 
-
+	};
 	public TravelStatus(long id, String name, List<TravelOrder> travelOrders) { 
 		this.id = id;
 		this.name = name;
@@ -69,6 +65,7 @@ public class TravelStatus implements Serializable {
 	public TravelOrder addTravelOrder(TravelOrder travelOrder) {
 		getTravelOrders().add(travelOrder);
 		travelOrder.setTravelStatus(this);
+
 		return travelOrder;
 	}
 
