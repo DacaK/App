@@ -39,6 +39,25 @@ public class ServiceBook implements Serializable {
 	public ServiceBook() {
 	}
 
+	public ServiceBook(String companyName, Date repairDate, int repairKilometers, String serviceDescription,
+			Vehicle vehicle) {
+		this.companyName = companyName;
+		this.repairDate = repairDate;
+		this.repairKilometers = repairKilometers;
+		this.serviceDescription = serviceDescription;
+		this.vehicle = vehicle;
+	}
+	
+	public ServiceBook(int id, String companyName, Date repairDate, int repairKilometers, String serviceDescription,
+			Vehicle vehicle) {
+		this.id = id;
+		this.companyName = companyName;
+		this.repairDate = repairDate;
+		this.repairKilometers = repairKilometers;
+		this.serviceDescription = serviceDescription;
+		this.vehicle = vehicle;
+	}
+
 	public int getId() {
 		return this.id;
 	}

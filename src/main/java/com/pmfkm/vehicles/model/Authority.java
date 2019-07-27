@@ -1,7 +1,5 @@
 package com.pmfkm.vehicles.model;
 
-
-
 import java.io.Serializable;
 import java.util.List;
 

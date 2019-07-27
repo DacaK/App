@@ -2,6 +2,9 @@ package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -44,10 +47,12 @@ public class Vehicle implements Serializable {
 
 	//bi-directional many-to-one association to ServiceBook
 	@OneToMany(mappedBy="vehicle")
+	@JsonIgnore
 	private List<ServiceBook> serviceBooks;
 
 	//bi-directional many-to-one association to TravelOrder
 	@OneToMany(mappedBy="vehicle")
+	@JsonIgnore
 	private List<TravelOrder> travelOrders;
 
 	public Vehicle() {
@@ -70,7 +75,6 @@ public class Vehicle implements Serializable {
 		this.travelOrders = travelOrders;
 	}
 
-
 	public Vehicle(String brand, float consumption, float cubage, int distance, boolean isActive, boolean isAvailable,
 			int lastService, String licenceNum, String model, String vehicleNum, List<TravelOrder> travelOrders) {
 		this.brand = brand;
@@ -85,7 +89,6 @@ public class Vehicle implements Serializable {
 		this.vehicleNum = vehicleNum;
 		this.travelOrders = travelOrders;
 	}
-
 
 	public int getId() {
 		return this.id;

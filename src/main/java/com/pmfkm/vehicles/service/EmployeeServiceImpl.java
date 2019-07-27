@@ -2,18 +2,15 @@ package com.pmfkm.vehicles.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pmfkm.vehicles.dao.EmployeeDao;
 import com.pmfkm.vehicles.model.Authority;
 import com.pmfkm.vehicles.model.Employee;
-
-
+import com.pmfkm.vehicles.model.TravelOrder;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -74,10 +70,54 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.findByUsername(username);
 	}
 
+	@Override
+	public List<TravelOrder> allUsersTravelOrders(int id) {
+		return employeeDao.findById(id).get().getTravelOrders();
+	}
 
-	
-	
+	@Override
+	public boolean isUserAlreadyPresent(Employee employee) {
+//		List<Employee> employees = employeeDao.findAll();
+//		for (Employee emp : employees) {
+//			if(employee.getUsername().equals(emp.getUsername())
+//					&& employee.getEmail().equals(emp.getEmail())) {
+//				return true;
+//			}
+//		}
+		return false;
+	}
 
+	@Override
+	public Optional<Employee> findById(int id) {
+		return employeeDao.findById(id);
+	}
+
+	@Override
+	public void deactivateEmployee(int id) {
+		Optional<Employee> employee = employeeDao.findById(id);
+		employee.get().setIsActive(false);
+		employeeDao.save(employee.get());
+	}
+
+	@Override
+	public void activateEmployee(int id) {
+		Optional<Employee> employee = employeeDao.findById(id);
+		employee.get().setIsActive(true);
+		employeeDao.save(employee.get());
+		
+	}
+
+	@Override
+	public Employee findByEmail(String email) {
+		List<Employee> employees = employeeDao.findAll();
+		Employee temp = null;
+		for (Employee emp: employees) {
+			if(emp.getEmail().equals(email)) {
+				temp = emp;
+			}
+		}
+		return temp;
+	}
 
 }
 

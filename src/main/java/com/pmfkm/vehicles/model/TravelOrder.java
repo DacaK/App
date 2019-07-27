@@ -2,6 +2,9 @@ package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -50,6 +53,7 @@ public class TravelOrder implements Serializable {
 
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="travelOrder")
+	@JsonIgnore
 	private List<Bill> bills;
 
 	//bi-directional many-to-one association to Employee
