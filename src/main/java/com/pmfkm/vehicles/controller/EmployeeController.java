@@ -28,7 +28,6 @@ public class EmployeeController {
 	
 
 	@GetMapping("/getEmployee")
-	@PreAuthorize("hasRole('USER')")
 	public Employee getEmployee(Principal principal) {
 		Employee user = employeeService.getEmployeeByUsername(principal.getName());
 		return  user;

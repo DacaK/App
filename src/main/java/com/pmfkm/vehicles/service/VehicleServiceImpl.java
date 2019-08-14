@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pmfkm.vehicles.dao.VehicleDao;
+import com.pmfkm.vehicles.model.ServiceBook;
 import com.pmfkm.vehicles.model.Vehicle;
 
 @Service
@@ -116,6 +117,12 @@ public class VehicleServiceImpl implements VehicleService {
 			}
 		}
 		return vehiclesForDeactivating;
+	}
+
+	@Override
+	public List<ServiceBook> getAllServiceBookByIdVehicle(int id) {
+		Optional<Vehicle> vehicle = vehicleDao.findById(id);
+		return vehicle.get().getServiceBooks();
 	}
 	
 	

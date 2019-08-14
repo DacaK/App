@@ -3,6 +3,9 @@ package com.pmfkm.vehicles.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.pmfkm.vehicles.model.ServiceBook;
 import com.pmfkm.vehicles.model.Vehicle;
 
 public interface VehicleService {
@@ -19,4 +22,5 @@ public interface VehicleService {
 	public List<Vehicle> findAllUnavaliable();
 	public List<Vehicle> findAllVehiclesForService();
 	public List<Vehicle> findAllVehiclesForDeactivation();
+	public List<ServiceBook> getAllServiceBookByIdVehicle(int id);
 }

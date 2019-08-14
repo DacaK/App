@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pmfkm.vehicles.model.ServiceBook;
 import com.pmfkm.vehicles.model.Vehicle;
 import com.pmfkm.vehicles.service.VehicleService;
 
@@ -80,6 +81,11 @@ public class VehicleRestController {
 	@GetMapping("/fordeactivation")
 	public List<Vehicle> allVehiclesForDeactivation(){
 		return vehicleService.findAllVehiclesForDeactivation();
+	}
+	
+	@GetMapping("/vehiclesevicebook/{id}")
+	public List<ServiceBook> getAllServiceBookByIdVehicle(@PathVariable("id") int id){
+		return vehicleService.getAllServiceBookByIdVehicle(id);
 	}
 	
 }
