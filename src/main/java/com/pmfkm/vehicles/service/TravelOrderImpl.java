@@ -27,11 +27,6 @@ public class TravelOrderImpl implements TravelOrderService{
 	public List<TravelOrder> findAll() {
 		return travelOrderDao.findAll();
 	}
-//Proveriti sta ova metoda zaista radi
-	@Override
-	public TravelOrder saveTravelOrder(TravelOrder travelOrder) {
-		return travelOrderDao.save(travelOrder);
-	}
 
 	@Override
 	public TravelOrder addTravelOrder(TravelOrder travelOrder) {

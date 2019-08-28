@@ -3,6 +3,8 @@ package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 /**
@@ -19,9 +21,11 @@ public class ServiceBook implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotNull(message="Company name is required")
 	@Column(name="COMPANY_NAME")
 	private String companyName;
 
+	@NotNull(message="Repaired date is required")
 	@Temporal(TemporalType.DATE)
 	@Column(name="REPAIR_DATE")
 	private Date repairDate;
@@ -29,10 +33,12 @@ public class ServiceBook implements Serializable {
 	@Column(name="REPAIR_KILOMETERS")
 	private int repairKilometers;
 
+	@NotNull(message="Service description is required")
 	@Column(name="SERVICE_DESCRIPTION")
 	private String serviceDescription;
 
 	//bi-directional many-to-one association to Vehicle
+	@NotNull(message="Vehicle is required")
 	@ManyToOne
 	private Vehicle vehicle;
 

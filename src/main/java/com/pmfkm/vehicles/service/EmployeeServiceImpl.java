@@ -29,12 +29,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	
+
 	@Transactional
 	public Employee saveEmployee(Employee employee) {
-		
+
 		Authority autority = new Authority();
-		
+
 		autority.setId(2);
 		employee.setIsActive(true);
 		employee.setAuthority(autority);
@@ -50,19 +50,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		Employee employee = employeeDao.findByUsername(username);
-		
-		if(employee == null) {
-			throw new UsernameNotFoundException("User not found with username:"+username);
+
+		Employee employee = employeeDao.findByUsernameAndIsActiveTrue(username);
+
+		if (employee == null) {
+			throw new UsernameNotFoundException("User not found with username:" + username);
 		}
-		
-	    return new User(employee.getUsername(), employee.getPassword(), maptoGrantedAuthorities(new ArrayList<String>(Arrays.asList("ROLE_"+employee.getAuthority().getRole()))));
+
+		return new User(employee.getUsername(), employee.getPassword(), maptoGrantedAuthorities(
+				new ArrayList<String>(Arrays.asList("ROLE_" + employee.getAuthority().getRole()))));
 	}
-	
 
 	private static List<GrantedAuthority> maptoGrantedAuthorities(List<String> authorities) {
-		return authorities.stream().map(Authority -> new SimpleGrantedAuthority(Authority)).collect(Collectors.toList());
+		return authorities.stream().map(Authority -> new SimpleGrantedAuthority(Authority))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -71,20 +72,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<TravelOrder> allUsersTravelOrders(int id) {
-		return employeeDao.findById(id).get().getTravelOrders();
-	}
-
-	@Override
-	public boolean isUserAlreadyPresent(Employee employee) {
-//		List<Employee> employees = employeeDao.findAll();
-//		for (Employee emp : employees) {
-//			if(employee.getUsername().equals(emp.getUsername())
-//					&& employee.getEmail().equals(emp.getEmail())) {
-//				return true;
-//			}
-//		}
-		return false;
+	public List<TravelOrder> allUserTravelOrders(String username) {
+		return employeeDao.findByUsername(username).getTravelOrders();
 	}
 
 	@Override
@@ -104,21 +93,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Optional<Employee> employee = employeeDao.findById(id);
 		employee.get().setIsActive(true);
 		employeeDao.save(employee.get());
-		
 	}
 
 	@Override
-	public Employee findByEmail(String email) {
-		List<Employee> employees = employeeDao.findAll();
-		Employee temp = null;
-		for (Employee emp: employees) {
-			if(emp.getEmail().equals(email)) {
-				temp = emp;
-			}
-		}
-		return temp;
+	public boolean isEmailAlreadyInUse(String email) {
+		return employeeDao.findByEmail(email) == null;
+
+	}
+
+	@Override
+	public boolean isUsernameAlreadyTaken(String username) {
+		return employeeDao.findByUsername(username) == null;
 	}
 
 }
-
-

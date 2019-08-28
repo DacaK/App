@@ -36,7 +36,7 @@ public class Authority implements Serializable {
 
 	public Authority() {
 	}
-
+	
 	public int getId() {
 		return this.id;
 	}
@@ -61,18 +61,6 @@ public class Authority implements Serializable {
 		this.employees = employees;
 	}
 
-	public Employee addEmployee(Employee employee) {
-		getEmployees().add(employee);
-		employee.setAuthority(this);
 
-		return employee;
-	}
-
-	public Employee removeEmployee(Employee employee) {
-		getEmployees().remove(employee);
-		employee.setAuthority(null);
-
-		return employee;
-	}
 
 }

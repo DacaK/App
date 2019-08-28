@@ -2,6 +2,7 @@ package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the BILL database table.
@@ -15,17 +16,20 @@ public class Bill implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@NotNull(message=("Bill number is required!"))
 	@Column(name="BILL_NUM")
 	private double billNum;
 
 	@Column(name="IMG_PATH")
 	private String imgPath;
-
-	@Column(name="\"SUM\"")
+	
+	@NotNull(message=("Scaned bill is reqired!"))
+	@Column(name="SUM")
 	private double sum;
 
 	//bi-directional many-to-one association to TravelOrder
+//	@NotNull(message=("Travel order to which bill is belong is required!"))
 	@ManyToOne
 	@JoinColumn(name="TRAVEL_ORDER_ID")
 	private TravelOrder travelOrder;
@@ -87,4 +91,5 @@ public class Bill implements Serializable {
 		this.travelOrder = travelOrder;
 	}
 
-}
+} 
+ 

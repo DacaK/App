@@ -3,6 +3,8 @@ package com.pmfkm.vehicles.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,11 @@ public class VehicleRestController {
 	}
 	
 	@PostMapping("/vehicle")
-	public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
+	public Vehicle addVehicle(@Valid @RequestBody Vehicle vehicle) {
 		return vehicleService.addVehicle(vehicle);
 	}
 	@PutMapping("/vehicle")
-	public Vehicle updateVehicle(@RequestBody Vehicle vehicle) {
+	public Vehicle updateVehicle(@Valid @RequestBody Vehicle vehicle) {
 		Optional <Vehicle> vehicleById = vehicleService.findById(vehicle.getId());
 		return vehicleService.save(vehicleById.get());
 	}
@@ -44,17 +46,17 @@ public class VehicleRestController {
 	}
 	
 	@PutMapping("/unavaliable/{id}")
-	public void setUnavaliableVehicle(@PathVariable("id") int id) {
+	public void setUnavaliableVehicle(@Valid @PathVariable("id") int id) {
 		vehicleService.setUnavaliableVehicle(id);
 	}
 	
 	@PutMapping("/avaliable/{id}")
-	public void setAvaliableVehicle(@PathVariable("id") int id) {
+	public void setAvaliableVehicle(@Valid @PathVariable("id") int id) {
 		vehicleService.setAvaliableVehicle(id);
 	}
 	
 	@PutMapping("/delete/{id}")
-	public void deleteVehicle(@PathVariable("id") int id) {
+	public void deleteVehicle(@Valid @PathVariable("id") int id) {
 		vehicleService.deleteVehicle(id);
 	}
 	

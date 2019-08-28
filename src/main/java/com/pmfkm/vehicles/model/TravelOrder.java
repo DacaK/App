@@ -1,13 +1,25 @@
 package com.pmfkm.vehicles.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Date;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * The persistent class for the TRAVEL_ORDER database table.
@@ -40,6 +52,7 @@ public class TravelOrder implements Serializable {
 	@Column(name="DATE_START")
 	private Date dateStart;
 
+	@NotNull(message="Destination is required")
 	private String destination;
 
 	@Column(name="EMP_NOTE")
@@ -57,6 +70,7 @@ public class TravelOrder implements Serializable {
 	private List<Bill> bills;
 
 	//bi-directional many-to-one association to Employee
+	@NotNull(message="Employee is required")
 	@ManyToOne
 	private Employee employee;
 
@@ -66,6 +80,7 @@ public class TravelOrder implements Serializable {
 	private TravelStatus travelStatus;
 
 	//bi-directional many-to-one association to Vehicle
+	@NotNull(message="Vehicle is required")
 	@ManyToOne
 	private Vehicle vehicle;
 

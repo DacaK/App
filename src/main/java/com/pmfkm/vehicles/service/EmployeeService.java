@@ -15,19 +15,16 @@ public interface EmployeeService  extends UserDetailsService
 {
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-	
 	Employee saveEmployee(Employee employee);
-	
 	List<Employee>getAllEmployees();
-	
 	public Employee getEmployeeByUsername(String username);
 	
-	public List<TravelOrder> allUsersTravelOrders(int id);
-	public boolean isUserAlreadyPresent(Employee employee);
+	public List<TravelOrder> allUserTravelOrders(String username);
 	public Optional<Employee> findById(int id);
 	public void deactivateEmployee(int id);
 	public void activateEmployee(int id);
-	public Employee findByEmail(String email);
+	public boolean isEmailAlreadyInUse(String email);
+	public boolean isUsernameAlreadyTaken(String username);
 	
 	
 }

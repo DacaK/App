@@ -3,6 +3,8 @@ package com.pmfkm.vehicles.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ public class TravelOrderRestController {
 	}
 	
 	@PostMapping("/travelorder")
-	public TravelOrder addTravelOrder(@RequestBody TravelOrder travelOrder) {
+	public TravelOrder addTravelOrder(@Valid @RequestBody TravelOrder travelOrder) {
 		return travelOrderService.addTravelOrder(travelOrder);
 	}
 	
@@ -37,7 +39,7 @@ public class TravelOrderRestController {
 	}
 	
 	@PutMapping("/travelorder")
-	public TravelOrder updateTravelOrder(@RequestBody TravelOrder travelOrder) {
+	public TravelOrder updateTravelOrder(@Valid @RequestBody TravelOrder travelOrder) {
 		return travelOrderService.updateTravelOrder(travelOrder);
 	}
 		

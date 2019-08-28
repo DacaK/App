@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,20 +29,26 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 
+	@NotNull(message="Email is required!")
+	@Email
 	private String email;
 
+	@NotNull(message="First name is required!")
 	@Column(name="FIRST_NAME")
 	private String firstName;
 
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
 
+	@NotNull(message="Last name is required!")
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
+	@NotNull(message="Password is required!")
 	@Column(name="PASS")
 	private String password;
 
+	@NotNull(message="Username is required!")
 	private String username;
 
 	//bi-directional many-to-one association to Authority

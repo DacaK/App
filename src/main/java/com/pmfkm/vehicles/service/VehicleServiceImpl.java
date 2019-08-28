@@ -71,52 +71,22 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public List<Vehicle> findAllAvaliable() {
-		List<Vehicle> vehicles = vehicleDao.findAll();
-		List<Vehicle> allAvaliableVehicles = new ArrayList<>();
-		for (Vehicle vehicle : vehicles) {
-			if(vehicle.getIsAvailable() == true) {
-				allAvaliableVehicles.add(vehicle);
-			}
-		}
-		return allAvaliableVehicles;
+		return vehicleDao.findAllByIsAvailableFalse();
 	}
 
 	@Override
 	public List<Vehicle> findAllUnavaliable() {
-		List<Vehicle> vehicles = vehicleDao.findAll();
-		List<Vehicle> allUnavaliableVehicles = new ArrayList<>();
-		
-		for (Vehicle vehicle : vehicles) {
-			if(vehicle.getIsAvailable() == false) {
-				allUnavaliableVehicles.add(vehicle);
-			}
-		}
-		return allUnavaliableVehicles;
+		return vehicleDao.findAllByIsAvailableTrue();
 	}
 
 	@Override
 	public List<Vehicle> findAllVehiclesForService() {
-		List<Vehicle> vehicles = vehicleDao.findAll();
-		List<Vehicle> vehiclesForService = new ArrayList<>();
-		for (Vehicle vehicle : vehicles) {
-			if((vehicle.getDistance() - vehicle.getLastService()) > 30000 && vehicle.getIsActive() == true) {
-				vehiclesForService.add(vehicle);
-			}
-		}
-		return vehiclesForService;
+		return vehicleDao.findAllVehiclesForService();
 	}
 
 	@Override
 	public List<Vehicle> findAllVehiclesForDeactivation() {
-		List<Vehicle> vehicles = vehicleDao.findAll();
-		List<Vehicle> vehiclesForDeactivating = new ArrayList<>();
-		
-		for (Vehicle vehicle : vehicles) {
-			if(vehicle.getDistance() >= 300000 && vehicle.getIsActive() == true) {
-				vehiclesForDeactivating.add(vehicle);
-			}
-		}
-		return vehiclesForDeactivating;
+		return vehicleDao.findAllVehiclesForDeactivation();
 	}
 
 	@Override

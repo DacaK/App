@@ -19,7 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.pmfkm.vehicles.service.EmployeeService;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component

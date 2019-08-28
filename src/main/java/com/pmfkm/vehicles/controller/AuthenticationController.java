@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmfkm.vehicles.config.JwtTokenUtil;
@@ -32,16 +33,17 @@ public class AuthenticationController {
 	JwtTokenUtil jwtTokenUtil;
 
 	@PostMapping(value = "/register")
-	public Employee saveUser(@RequestBody Employee employee) throws Exception {
-		return employeeService.saveEmployee(employee);
+	@ResponseBody
+	public String saveUser(@RequestBody Employee employee) throws Exception {
+		if(!employeeService.isEmailAlreadyInUse(employee.getEmail())) {
+			return "User with this email address already exist";
+		}
+		if(!employeeService.isUsernameAlreadyTaken(employee.getUsername())) {
+			return "User with this username already exist";
+		}
+		employeeService.saveEmployee(employee);
+		return "User is registered successfully";
 	}
-//	public ResponseEntity<Response> saveUser(@RequestBody Employee employee) throws Exception {
-//	Employee theUser = employeeService.saveEmployee(employee);
-//	if(theUser != null) {
-//		retunr new ResponseEntity<Response>(new Response("User is saved succesfully"), HttpStatus.OK);
-//	}
-//	return null;
-	//return employeeService.saveEmployee(employee);
 
 	@PostMapping(value = "/login")
 	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
