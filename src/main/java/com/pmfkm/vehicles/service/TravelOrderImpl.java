@@ -52,7 +52,13 @@ public class TravelOrderImpl implements TravelOrderService{
 			travelOrder.setVehicle(vehicle);
 			vehicleDao.save(vehicle);
 			travelOrderDao.save(travelOrder);
-		}else if (status == 4 ) {
+		} else if(status == 3) {
+			Vehicle vehicle = travelOrder.getVehicle();
+			vehicle.setIsAvailable(true);
+			travelOrder.setVehicle(vehicle);
+			vehicleDao.save(vehicle);
+			travelOrderDao.save(travelOrder);
+		} else if (status == 4 ) {
 			Vehicle vehicle = travelOrder.getVehicle();
 			vehicle.setIsAvailable(true);
 			vehicle.setDistance(vehicle.getDistance() + travelOrder.getActDistance());

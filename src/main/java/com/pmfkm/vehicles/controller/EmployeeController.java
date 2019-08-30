@@ -30,7 +30,6 @@ public class EmployeeController {
 		return  employeeService.getAllEmployees();
 	}
 	
-
 	@GetMapping("/getEmployee")
 	public Employee getEmployee(Principal principal) {
 		Employee user = employeeService.getEmployeeByUsername(principal.getName());
@@ -48,12 +47,12 @@ public class EmployeeController {
 	}
 	
 	@PutMapping("/deactivate/{id}")
-	public void deactivateEmployee(int id) {
+	public void deactivateEmployee(@PathVariable("id") int id) {
 		employeeService.deactivateEmployee(id);
 	}
 	
 	@PutMapping("/activate/{id}")
-	public void activateEmployee(int id) {
+	public void activateEmployee(@PathVariable("id") int id) {
 		employeeService.activateEmployee(id);
 	}
 

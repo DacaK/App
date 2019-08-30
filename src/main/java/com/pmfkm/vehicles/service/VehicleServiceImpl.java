@@ -71,12 +71,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public List<Vehicle> findAllAvaliable() {
-		return vehicleDao.findAllByIsAvailableFalse();
+		return vehicleDao.findAllByIsAvailableTrue();
 	}
 
 	@Override
 	public List<Vehicle> findAllUnavaliable() {
-		return vehicleDao.findAllByIsAvailableTrue();
+		return vehicleDao.findAllByIsAvailableFalse();
 	}
 
 	@Override
